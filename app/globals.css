@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  /* Cyberpunk Colors */
+  --color-cyber-bg-primary: #0B0F14;
+  --color-cyber-bg-secondary: #05070A;
+  --color-cyber-neon-teal: #00E5B0;
+  --color-cyber-neon-blue: #00A3FF;
+  --color-cyber-text-muted: #94A3B8;
+  --color-cyber-text-primary: #E2E8F0;
+  
+  /* Fonts */
+  --font-heading: 'Orbitron', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Shadows */
+  --shadow-neon: 0 0 20px rgba(0, 229, 176, 0.5);
+  --shadow-neon-strong: 0 0 40px rgba(0, 229, 176, 0.8);
+}
+
+@layer base {
+  body {
+    background: var(--color-cyber-bg-primary);
+    color: var(--color-cyber-text-primary);
+    font-family: var(--font-body);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+  }
+  
+  .neon-text {
+    color: var(--color-cyber-neon-teal);
+    text-shadow: 0 0 10px rgba(0, 229, 176, 0.5);
+  }
+}

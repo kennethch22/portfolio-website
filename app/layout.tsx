@@ -1,0 +1,26 @@
+import type { Metadata } from "next";
+import { inter, orbitron, jetbrainsMono } from "./fonts";
+import "./globals.css";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+
+export const metadata: Metadata = {
+  title: "Cyberpunk Portfolio",
+  description: "A futuristic portfolio experience",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={`${inter.variable} ${orbitron.variable} ${jetbrainsMono.variable}`}>
+      <body>
+        <Navbar />
+        <div className="pt-20">{children}</div>
+        <Footer />
+      </body>
+    </html>
+  );
+}
