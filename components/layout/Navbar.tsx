@@ -3,10 +3,10 @@ import Link from 'next/link';
 export default function Navbar() {
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
     { label: 'Projects', href: '/projects' },
-    { label: 'Experience', href: '/experiences' },
     { label: 'Skills', href: '/skills' },
+    { label: 'Experience', href: '/experiences' },
+    { label: 'Organisations', href: '/organisations' },
   ];
 
   return (
@@ -36,4 +36,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
