@@ -2,10 +2,38 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function AuthError() {
+function ErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
+
+  const getErrorMessage = () => {
+    switch (error) {
+      case 'AccessDenied':
+        return {
+          title: 'Access Denied',
+          message: 'You do not have permission to access this area. Only authorized administrators can sign in.',
+        };
+      case 'Configuration':
+        return {
+          title: 'Configuration Error',
+          message: 'There is a problem with the server configuration. Please contact the administrator.',
+        };
+      case 'Verification':
+        return {
+          title: 'Verification Error',
+          message: 'The verification link has expired or is invalid. Please try signing in again.',
+        };
+      default:
+        return {
+          title: 'Authentication Error',
+          message: 'An error occurred during authentication. Please try again.',
+        };
+    }
+  };
+
+  const { title, message } = getErrorMessage();
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -14,8 +42,18 @@ export default function AuthError() {
           {/* Error Icon */}
           <div className="flex justify-center">
             <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center">
-              <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              <svg
+                className="w-8 h-8 text-red-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
               </svg>
             </div>
           </div>
@@ -23,24 +61,51 @@ export default function AuthError() {
           {/* Error Message */}
           <div className="text-center space-y-2">
             <h1 className="text-2xl font-heading text-red-500">
-              Access Denied
+              {title}
             </h1>
             <p className="text-cyber-text-muted">
-              You do not have permission to access this area. Only authorized administrators can sign in.
+              {message}
             </p>
           </div>
 
           {/* Actions */}
           <div className="space-y-3">
-            <Link href="/auth/signin" className="block w-full bg-cyber-neon-teal text-cyber-bg px-6 py-3 rounded-lg font-medium hover:bg-cyber-neon-teal/90 transition-colors text-center">
+            <Link
+              href="/auth/signin"
+              className="block w-full bg-cyber-neon-teal text-cyber-bg px-6 py-3 rounded-lg font-medium hover:bg-cyber-neon-teal/90 transition-colors text-center"
+            >
               Try Again
             </Link>
-            <Link href="/" className="block w-full text-cyber-text-muted hover:text-cyber-neon-teal transition-colors text-center">
+            <Link
+              href="/"
+              className="block w-full text-cyber-text-muted hover:text-cyber-neon-teal transition-colors text-center"
+            >
               Back to Home
             </Link>
           </div>
+
+          {/* Debug Info (only in development) */}
+          {process.env.NODE_ENV === 'development' && error && (
+            <div className="mt-4 p-3 bg-cyber-bg-lighter rounded border border-white/10">
+              <p className="text-xs text-cyber-text-muted">
+                Error code: <code className="text-red-400">{error}</code>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthError() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-cyber-text-muted">Loading...</div>
+      </div>
+    }>
+      <ErrorContent />
+    </Suspense>
   );
 }
