@@ -3,8 +3,8 @@ import Link from 'next/link';
 export default function Home() {
   // About Me data
   const aboutMe = {
-    name: "Kenneth Christopher Hendra",
-    title: "Aspiring Software Engineer| Entrepreneur | Foodie",
+    name: "Kenneth C. Hendra",
+    title: "Aspiring Software Engineer | Data Enthusiast | Ideator",
     bio: "I’m Kenneth, a Year 2 Business Analytics student at NUS who loves using data and technology to bring ideas to life. I enjoy designing and building projects from scratch and seeing them come alive on the web. I also love analyzing datasets and uncovering interesting insights. Besides this, I run a marketing agency on the side, where we do Social Media Marketing for over 20 clients. If I’m not working, I’m probably out trying new cuisines or playing Clash Royale.",
 
   };
@@ -75,17 +75,17 @@ export default function Home() {
     <main className="min-h-screen">
       {/* Hero Section */}
 <section className="flex items-center justify-center min-h-screen px-4">
-  <div className="max-w-7xl mx-auto w-full">
-    <div className="grid md:grid-cols-2 gap-12 items-center">
+  <div className="max-w-6xl mx-auto w-full">
+    <div className="grid md:grid-cols-2 gap-0 items-center">
       {/* Left Side - Text Content */}
-      <div className="space-y-6">
-        <h1 className="text-5xl md:text-7xl font-heading neon-text leading-tight">
+      <div className="space-y-8 flex flex-col justify-center">
+        <h1 className="text-5xl md:text-6xl font-heading neon-text leading-tight whitespace-nowrap">
           {aboutMe.name}
         </h1>
-        <p className="text-xl md:text-2xl text-cyber-text-muted">
+        <p className="text-xl md:text-2xl text-cyber-text-muted whitespace-nowrap">
           {aboutMe.title}
         </p>
-        <p className="text-lg text-cyber-text-muted leading-relaxed">
+        <p className="text-lg text-cyber-text-muted leading-relaxed text-justify pr--2">
           {aboutMe.bio}
         </p>
         <div className="flex gap-4 flex-wrap pt-4">
@@ -109,22 +109,14 @@ export default function Home() {
       {/* Right Side - Profile Picture */}
       <div className="flex justify-center md:justify-end">
         <div className="relative group">
-          {/* Glowing border effect */}
           <div className="absolute -inset-1 bg-gradient-to-r from-cyber-neon-teal to-cyber-neon-blue rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
-          
-          {/* Image container */}
           <div className="relative">
             <div className="w-80 h-80 md:w-96 md:h-96 rounded-lg overflow-hidden border-2 border-cyber-neon-teal/50">
-              {/* Replace with your actual image */}
               <img 
                 src="/profile-picture.jpg" 
-                alt="Kenneth Christopher"
+                alt="Kenneth Christopher Hendra"
                 className="w-full h-full object-cover"
               />
-              {/* Placeholder if no image yet */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyber-neon-teal/20 to-cyber-neon-blue/20 flex items-center justify-center">
-                <span className="text-8xl opacity-30">👤</span>
-              </div>
             </div>
           </div>
         </div>
@@ -132,32 +124,9 @@ export default function Home() {
     </div>
   </div>
 </section>
+
+
       
-
-      {/* About Me Section */}
-      <section className="px-4 py-20 bg-cyber-bg-secondary">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-12">
-            <h2 className="text-5xl md:text-6xl font-heading neon-text mb-4">
-              About Me
-            </h2>
-            <div className="h-1 w-32 bg-gradient-to-r from-cyber-neon-teal to-cyber-neon-blue"></div>
-          </div>
-
-          <div className="glass-card p-8 md:p-12 mb-8">
-            <p className="text-cyber-text-muted text-lg leading-relaxed mb-6">
-              {aboutMe.bio}
-            </p>
-
-            <h3 className="text-2xl font-heading text-cyber-neon-teal mb-4">
-            </h3>
-            <ul className="space-y-3 text-cyber-text-muted">
-
-
-            </ul>
-          </div>
-        </div>
-      </section>
 
       {/* Current Experiences Section */}
       {currentExperiences.length > 0 && (
@@ -288,38 +257,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Links Section */}
-      <section className="px-4 py-20">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-heading text-center neon-text mb-12">
-            Explore More
-          </h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { title: "Projects", desc: "See all my work", href: "/projects", icon: "🚀" },
-              { title: "Skills", desc: "My expertise", href: "/skills", icon: "⚡" },
-              { title: "Experience", desc: "My journey", href: "/experiences", icon: "📊" },
-              { title: "Organisations", desc: "Communities", href: "/organisations", icon: "🏢" }
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="glass-card p-6 text-center hover:shadow-neon transition-all duration-300 group"
-              >
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-heading text-cyber-neon-teal mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-cyber-text-muted text-sm">
-                  {item.desc}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      
     </main>
   );
 }

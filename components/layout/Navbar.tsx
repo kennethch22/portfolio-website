@@ -11,11 +11,11 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-2 py-4">
+        <div className="flex items-left justify-between">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-heading neon-text">
-            CYBER.DEV
+          <Link href="/" className="text-2xl font-heading neon-text -ml-16">
+            KCH
           </Link>
 
           {/* Nav Links */}
