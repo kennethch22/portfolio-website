@@ -3,6 +3,7 @@ import { inter, orbitron, jetbrainsMono } from "./fonts";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SessionProvider from "@/components/providers/SessionProvider"; 
 
 export const metadata: Metadata = {
   title: "Cyberpunk Portfolio",
@@ -17,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${orbitron.variable} ${jetbrainsMono.variable}`}>
       <body>
-        <Navbar />
-        <div className="pt-20">{children}</div>
-        <Footer />
+        <SessionProvider>
+          <Navbar />
+          <div className="pt-20">{children}</div>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );
