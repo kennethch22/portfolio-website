@@ -1,3 +1,4 @@
+import AdminModeIndicator from '@/components/auth/AdminModeIndicator';
 import type { Metadata } from "next";
 import { inter, orbitron, jetbrainsMono } from "./fonts";
 import "./globals.css";
@@ -22,6 +23,7 @@ export default function RootLayout({
           <Navbar />
           <div className="pt-20">{children}</div>
           <Footer />
+          <AdminModeIndicator />
         </SessionProvider>
       </body>
     </html>
