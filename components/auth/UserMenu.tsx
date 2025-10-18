@@ -64,12 +64,12 @@ export default function UserMenu() {
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-40 bg-transparent"
             onClick={() => setIsOpen(false)}
           />
 
           {/* Menu */}
-          <div className="absolute right-0 mt-2 w-64 glass-card p-4 space-y-4 z-50">
+          <div className="absolute right-0 mt-2 w-64 p-4 space-y-4 z-50 rounded-lg border border-white/10 bg-gray-900">
             {/* User Info */}
             <div className="space-y-1 pb-3 border-b border-white/10">
               <p className="font-medium text-cyber-text">

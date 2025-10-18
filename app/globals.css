@@ -33,10 +33,14 @@
 
 @layer components {
   .glass-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: linear-gradient(
+  rgba(25, 25, 25, 0.3),
+  rgba(25, 25, 25, 0.2)
+);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   }
   
   .neon-text {
