@@ -43,23 +43,18 @@ export default async function SkillsPage() {
               <div className="space-y-5">
                 {categorySkills.map((skill, skillIndex) => (
                   <div key={skillIndex}>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-cyber-text-primary font-medium">
-                        {skill.name}
-                      </span>
-                      {/* The 'level' field is not in the Prisma Skill model, so it's removed. */}
-                      {/* If you wish to re-introduce skill levels, you'd need to add it to your Prisma schema. */}
+                    +                <div className="flex justify-between mb-2">
+                  <div className="flex items-center gap-4">
+                    {skill.imageUrl && (
+                      <img src={skill.imageUrl} alt={skill.name} className="w-10 h-10 rounded-lg object-cover" />
+                    )}
+                    <span className="text-cyber-text-primary font-medium">
+                      {skill.name}
+                    </span>
+                  </div>
+
                     </div>
-                    
-                    {/* Progress bar based on 'level' is removed as 'level' is not in the schema. */}
-                    {/* If you add 'level' to the schema, you can re-implement this. */}
-                    {/* Example: */}
-                    {/* <div className="h-2 bg-white/10 rounded-full overflow-hidden"> */}
-                    {/*   <div  */}
-                    {/*     className="h-full bg-gradient-to-r from-cyber-neon-teal to-cyber-neon-blue rounded-full" */}
-                    {/*     style={{ width: `${skill.level}%` }} */}
-                    {/*   ></div> */}
-                    {/* </div> */}
+
                   </div>
                 ))}
               </div>

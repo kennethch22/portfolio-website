@@ -11,6 +11,7 @@ export default function SkillsTab() {
   const [formState, setFormState] = useState({
     name: "",
     category: "",
+    imageUrl: ""
   });
 
   useEffect(() => {
@@ -61,7 +62,7 @@ export default function SkillsTab() {
 
       if (!res.ok) throw new Error(`Failed to ${editingSkill ? "update" : "create"} skill`);
 
-      setFormState({ name: "", category: "" });
+      setFormState({ name: "", category: "", imageUrl: "" });
       setEditingSkill(null);
       fetchSkills();
     } catch (err: any) {
@@ -73,7 +74,8 @@ export default function SkillsTab() {
     setEditingSkill(skill);
     setFormState({
       name: skill.name,
-      category: skill.category,
+      category: skill.category, 
+      imageUrl: skill.imageUrl ??"",
     });
   };
 
@@ -109,6 +111,10 @@ export default function SkillsTab() {
             <label htmlFor="category" className="block text-sm font-medium text-gray-300">Category</label>
             <input type="text" id="category" name="category" value={formState.category} onChange={handleChange} className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
           </div>
+          <div className="md:col-span-2">
+        <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-300">Image URL</label>
+        <input type="text" id="imageUrl" name="imageUrl" value={formState.imageUrl} onChange={handleChange} className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+      </div>
         </div>
         <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           {editingSkill ? "Update Skill" : "Add Skill"}

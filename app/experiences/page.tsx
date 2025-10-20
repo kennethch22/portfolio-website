@@ -35,6 +35,11 @@ export default async function ExperiencesPage() {
                   index % 2 === 0 ? 'md:mr-auto md:pr-12' : 'md:ml-auto md:pl-12'
                 }`}>
                   <div className="glass-card p-6 hover:shadow-neon transition-all duration-300">
+                                {exp.imageUrl && (
+                <div className="mb-4">
+                  <img src={exp.imageUrl} alt={exp.company} className="w-full h-32 object-cover rounded-lg" />
+                </div>
+              )}
                     <div className="flex items-center gap-2 mb-3">
                       <span className="px-3 py-1 bg-cyber-neon-teal/10 border border-cyber-neon-teal/30 rounded text-xs text-cyber-neon-teal">
                         {exp.startDate} - {exp.current ? "Present" : exp.endDate}
