@@ -7,8 +7,8 @@ import Footer from "@/components/layout/Footer";
 import SessionProvider from "@/components/providers/SessionProvider"; 
 
 export const metadata: Metadata = {
-  title: "Cyberpunk Portfolio",
-  description: "A futuristic portfolio experience",
+  title: "Kenneth Christopher Hendra",
+  description: "Kenneth Christopher Hendra's Portfolio",
 };
 
 export default function RootLayout({
