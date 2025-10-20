@@ -1,24 +1,25 @@
-export default function SkillsPage() {
-  // TODO: Add your skills data here
-  const skillCategories = [
-    {
-      name: "Frontend",
-      skills: [
-        { name: "React", level: 90 },
-        { name: "Next.js", level: 85 },
-        { name: "TypeScript", level: 80 },
-        { name: "Tailwind CSS", level: 90 },
-      ]
+import { prisma } from "@/lib/prisma";
+
+export default async function SkillsPage() {
+  // Fetch skills from the database, grouped by category and ordered by name
+  const skills = await prisma.skill.findMany({
+    orderBy: [
+      { category: "asc" },
+      { name: "asc" }
+    ],
+  });
+
+  // Group skills by category for display
+  const skillsByCategory = skills.reduce(
+    (acc, skill) => {
+      if (!acc[skill.category]) {
+        acc[skill.category] = [];
+      }
+      acc[skill.category].push(skill);
+      return acc;
     },
-    {
-      name: "Backend",
-      skills: [
-        { name: "Node.js", level: 85 },
-        { name: "Python", level: 80 },
-        { name: "PostgreSQL", level: 75 },
-      ]
-    }
-  ];
+    {} as Record<string, typeof skills>
+  );
 
   return (
     <main className="min-h-screen px-4 py-20">
@@ -33,30 +34,32 @@ export default function SkillsPage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
+          {Object.entries(skillsByCategory).map(([category, categorySkills], categoryIndex) => (
             <div key={categoryIndex} className="glass-card p-8">
               <h2 className="text-2xl font-heading text-cyber-neon-teal mb-6">
-                {category.name}
+                {category}
               </h2>
               
               <div className="space-y-5">
-                {category.skills.map((skill, skillIndex) => (
+                {categorySkills.map((skill, skillIndex) => (
                   <div key={skillIndex}>
                     <div className="flex justify-between mb-2">
                       <span className="text-cyber-text-primary font-medium">
                         {skill.name}
                       </span>
-                      <span className="text-cyber-text-muted text-sm">
-                        {skill.level}%
-                      </span>
+                      {/* The 'level' field is not in the Prisma Skill model, so it's removed. */}
+                      {/* If you wish to re-introduce skill levels, you'd need to add it to your Prisma schema. */}
                     </div>
                     
-                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-cyber-neon-teal to-cyber-neon-blue rounded-full"
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
+                    {/* Progress bar based on 'level' is removed as 'level' is not in the schema. */}
+                    {/* If you add 'level' to the schema, you can re-implement this. */}
+                    {/* Example: */}
+                    {/* <div className="h-2 bg-white/10 rounded-full overflow-hidden"> */}
+                    {/*   <div  */}
+                    {/*     className="h-full bg-gradient-to-r from-cyber-neon-teal to-cyber-neon-blue rounded-full" */}
+                    {/*     style={{ width: `${skill.level}%` }} */}
+                    {/*   ></div> */}
+                    {/* </div> */}
                   </div>
                 ))}
               </div>
@@ -67,4 +70,3 @@ export default function SkillsPage() {
     </main>
   );
 }
-

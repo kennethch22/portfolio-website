@@ -1,27 +1,10 @@
-export default function ExperiencesPage() {
-  // TODO: Add your experience data here
-  const experiences = [
-    {
-      id: 1,
-      company: "Company Name",
-      role: "Your Role",
-      shortDesc: "Brief description of what you did here.",
-      startDate: "Jan 2024",
-      endDate: "Present",
-      skills: ["Next.js", "TypeScript", "PostgreSQL"],
-      current: true
-    },
-    {
-      id: 2,
-      company: "Previous Company",
-      role: "Previous Role",
-      shortDesc: "What you accomplished in this position.",
-      startDate: "Jun 2023",
-      endDate: "Dec 2023",
-      skills: ["React", "Node.js"],
-      current: false
-    }
-  ];
+import { prisma } from "@/lib/prisma";
+
+export default async function ExperiencesPage() {
+  // Fetch experiences from the database, ordered by the 'order' field
+  const experiences = await prisma.experience.findMany({
+    orderBy: { order: "asc" },
+  });
 
   return (
     <main className="min-h-screen px-4 py-20">
@@ -54,7 +37,7 @@ export default function ExperiencesPage() {
                   <div className="glass-card p-6 hover:shadow-neon transition-all duration-300">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="px-3 py-1 bg-cyber-neon-teal/10 border border-cyber-neon-teal/30 rounded text-xs text-cyber-neon-teal">
-                        {exp.startDate} - {exp.endDate}
+                        {exp.startDate} - {exp.current ? "Present" : exp.endDate}
                       </span>
                       {exp.current && (
                         <span className="px-3 py-1 bg-cyber-neon-blue/10 border border-cyber-neon-blue/30 rounded text-xs text-cyber-neon-blue animate-pulse">
@@ -74,16 +57,11 @@ export default function ExperiencesPage() {
                       {exp.shortDesc}
                     </p>
 
-                    <div className="flex flex-wrap gap-2">
-                      {exp.skills.map((skill, skillIndex) => (
-                        <span
-                          key={skillIndex}
-                          className="px-2 py-1 bg-white/5 rounded text-xs text-cyber-text-muted"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+                    {exp.fullDesc && (
+                      <p className="text-cyber-text-muted text-sm mb-4">
+                        {exp.fullDesc}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -94,4 +72,3 @@ export default function ExperiencesPage() {
     </main>
   );
 }
-

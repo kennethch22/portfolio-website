@@ -1,21 +1,10 @@
-export default function ProjectsPage() {
-  // TODO: Add your projects data here
-  const projects = [
-    {
-      id: 1,
-      title: "Project One",
-      shortDesc: "A brief description of your project goes here.",
-      skills: ["Next.js", "TypeScript", "Tailwind"],
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Project Two",
-      shortDesc: "Another amazing project you've worked on.",
-      skills: ["React", "Node.js", "PostgreSQL"],
-      featured: false,
-    }
-  ];
+import { prisma } from "@/lib/prisma";
+
+export default async function ProjectsPage() {
+  // Fetch projects from the database, ordered by the 'order' field
+  const projects = await prisma.project.findMany({
+    orderBy: { order: "asc" },
+  });
 
   return (
     <main className="min-h-screen px-4 py-20">
@@ -36,7 +25,16 @@ export default function ProjectsPage() {
               className="glass-card overflow-hidden hover:shadow-neon transition-all duration-300 group cursor-pointer"
             >
               <div className="h-48 bg-gradient-to-br from-cyber-neon-teal/20 to-cyber-neon-blue/20 flex items-center justify-center relative">
-                <span className="text-6xl opacity-20">🚀</span>
+                {/* Assuming imageUrl is available from the database */}
+                {project.imageUrl ? (
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-6xl opacity-20">🚀</span>
+                )}
                 {project.featured && (
                   <div className="absolute top-4 right-4 px-3 py-1 bg-cyber-neon-teal text-cyber-bg-primary text-xs font-bold rounded-full">
                     FEATURED
@@ -52,20 +50,34 @@ export default function ProjectsPage() {
                   {project.shortDesc}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.skills.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-cyber-neon-teal/10 border border-cyber-neon-teal/30 rounded text-xs text-cyber-neon-teal"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+                {/* Skills are handled via a junction table, so direct display here is removed for simplicity. */}
+                {/* If you want to display skills, you'll need to adjust the Prisma query to include them. */}
+                {/* Example: include: { skills: { include: { skill: true } } } and then map over project.skills.map(ps => ps.skill.name) */}
 
                 <div className="flex items-center gap-2 text-cyber-neon-teal text-sm font-medium">
-                  <span>View Project</span>
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  {project.demoUrl && (
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Demo
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      GitHub
+                    </a>
+                  )}
+                  {(project.demoUrl || project.githubUrl) && (
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -75,4 +87,3 @@ export default function ProjectsPage() {
     </main>
   );
 }
-

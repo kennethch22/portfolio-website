@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { adminAuthMiddleware } from "@/lib/auth-middleware";
 
-// GET all skills (Read)
+// GET all projects (Read)
 export async function GET(req: NextRequest) {
   // Security: Auth middleware is still required
   const authError = await adminAuthMiddleware(req);
@@ -75,6 +75,6 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ message: "skill deleted successfully" }); // <-- Changed
   } catch (error) {
     console.error("Failed to delete skill:", error); // <-- Changed
-    return NextResponse.json({ message: "Failed to delete skill" }, { status: 500 }); // <-- Changed
+    return NextResponse.json({ message: "Failed to delete project" }, { status: 500 }); // <-- Changed
   }
 }
