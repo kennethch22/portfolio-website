@@ -5,7 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SessionProvider from "@/components/providers/SessionProvider"; 
-
+import MagicCursor from '@/components/effects/MagicCursor';
 export const metadata: Metadata = {
   title: "Kenneth Christopher Hendra",
   description: "Kenneth Christopher Hendra's Portfolio",
@@ -23,6 +23,7 @@ export default function RootLayout({
           <Navbar />
           <div className="pt-20">{children}</div>
           <Footer />
+            <MagicCursor />
         </SessionProvider>
       </body>
     </html>
