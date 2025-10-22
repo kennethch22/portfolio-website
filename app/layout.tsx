@@ -23,7 +23,6 @@ export default function RootLayout({
           <Navbar />
           <div className="pt-20">{children}</div>
           <Footer />
-            <MagicCursor />
         </SessionProvider>
       </body>
     </html>
