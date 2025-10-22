@@ -47,6 +47,10 @@ export default function ProjectsTab() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const dataToSubmit = {
+      ...formState,
+      order: Number(formState.order) || 0, // Convert string to number here
+    };
     e.preventDefault();
     setError(null);
     try {
@@ -55,13 +59,13 @@ export default function ProjectsTab() {
         res = await fetch("/api/admin/projects", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: editingProject.id, ...formState }),
+          body: JSON.stringify({ id: editingProject.id, ...dataToSubmit }),
         });
       } else {
         res = await fetch("/api/admin/projects", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formState),
+          body: JSON.stringify(dataToSubmit),
         });
       }
 

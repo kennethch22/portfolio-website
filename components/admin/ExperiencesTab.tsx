@@ -51,6 +51,10 @@ export default function ExperiencesTab() {
 
   // Handle form submission (create or update)
   const handleSubmit = async (e: React.FormEvent) => {
+    const dataToSubmit = {
+      ...formState,
+      order: Number(formState.order) || 0, // Convert string to number here
+    };
     e.preventDefault();
     setError(null);
     try {
@@ -60,14 +64,14 @@ export default function ExperiencesTab() {
         res = await fetch("/api/admin/experiences", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: editingExperience.id, ...formState }),
+          body: JSON.stringify({ id: editingExperience.id, ...dataToSubmit }),
         });
       } else {
         // Create new experience
         res = await fetch("/api/admin/experiences", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formState),
+          body: JSON.stringify(dataToSubmit),
         });
       }
 
@@ -94,6 +98,7 @@ export default function ExperiencesTab() {
 
   // Load an experience into the form for editing
   const handleEdit = (experience: Experience) => {
+    
     setEditingExperience(experience);
     setFormState({
       company: experience.company,

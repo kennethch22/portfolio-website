@@ -48,6 +48,10 @@ export default function OrganizationsTab() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const dataToSubmit = {
+      ...formState,
+      order: Number(formState.order) || 0, // Convert string to number here
+    };
     e.preventDefault();
     setError(null);
     try {
@@ -56,13 +60,13 @@ export default function OrganizationsTab() {
         res = await fetch("/api/admin/organizations", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: editingOrg.id, ...formState }),
+          body: JSON.stringify({ id: editingOrg.id, ...dataToSubmit }),
         });
       } else {
         res = await fetch("/api/admin/organizations", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formState),
+          body: JSON.stringify(dataToSubmit),
         });
       }
 
