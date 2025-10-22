@@ -2,13 +2,12 @@
 
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { useAdminStore } from '@/lib/store';
-import { LogOut, Shield, User } from 'lucide-react';
+import { LogOut, User, Settings } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function UserMenu() {
   const { data: session } = useSession();
-  const { isAdminMode, toggleAdminMode } = useAdminStore();
   const [isOpen, setIsOpen] = useState(false);
 
   if (!session?.user) {
@@ -80,36 +79,18 @@ export default function UserMenu() {
               </p>
             </div>
 
-            {/* Admin Mode Toggle */}
+            {/* Admin Dashboard Link (only if user is admin) */}
             {(session.user as any).isAdmin && (
-              <div className="space-y-2 pb-3 border-b border-white/10">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-cyber-neon-teal" />
-                    <span className="text-sm font-medium text-cyber-text">
-                      Admin Mode
-                    </span>
-                  </div>
-                  <button
-                    onClick={toggleAdminMode}
-                    className={`relative w-11 h-6 rounded-full transition-colors ${
-                      isAdminMode
-                        ? 'bg-cyber-neon-teal'
-                        : 'bg-white/10'
-                    }`}
-                  >
-                    <span
-                      className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white transition-transform ${
-                        isAdminMode ? 'translate-x-5' : ''
-                      }`}
-                    />
-                  </button>
-                </div>
-                {isAdminMode && (
-                  <p className="text-xs text-cyber-neon-teal">
-                    Edit mode enabled
-                  </p>
-                )}
+                           <div className="pb-3 border-b border-white/10">
+                <Link
+                  href="/admin"
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 text-cyber-text hover:text-cyber-neon-teal transition-colors"
+                  onClick={() => setIsOpen(false)} // Close menu on click
+                >
+                  <Settings className="w-4 h-4" /> {/* Changed icon */}
+                  <span className="text-sm font-medium">Admin Dashboard</span>
+                </Link>
+
               </div>
             )}
 
